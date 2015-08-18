@@ -40,13 +40,8 @@ alias help_phptopline='head -n 1 ~/bin/minifyJS';
 # export PS1='\[\033[32m\w/\[\033[0m\]:$ ';
 export PS1='\[\033[01;32m\]\w\[\033[00m\]:\$ ';
 
-function tabname {
-  printf "\e]1;$1\a"
-}
- 
-function winname {
-  printf "\e]2;$1\a"
-}
+function tabname { printf "\e]1;$1\a" }
+function winname { printf "\e]2;$1\a" }
 
 # Always use color output for `ls`
 alias ls="ls -G"
@@ -70,36 +65,24 @@ function md() {
 # go plugin
 # Instructions on use: http://bit.ly/1cLyE9Q
 export MARKPATH=$HOME/.marks
-
-function go {
-    cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1"
-}
-
-function mark {
-    mkdir -p "$MARKPATH"; ln -s "$(pwd)" "$MARKPATH/$1"
-}
-
-function unmark {
-    rm -i "$MARKPATH/$1"
-}
-
-function marks {
-    \ls -l "$MARKPATH" | tail -n +2 | sed 's/  / /g' | cut -d' ' -f9- | awk -F ' -> ' '{printf "%-10s -> %s\n", $1, $2}'
-}
-
+function go { cd -P "$MARKPATH/$1" 2>/dev/null || echo "No such mark: $1" }
+function mark { mkdir -p "$MARKPATH"; ln -s "$(pwd)" "$MARKPATH/$1" }
+function unmark { rm -i "$MARKPATH/$1" }
+function marks { \ls -l "$MARKPATH" | tail -n +2 | sed 's/  / /g' | cut -d' ' -f9- | awk -F ' -> ' '{printf "%-10s -> %s\n", $1, $2}' }
 _completemarks() {
   local curw=${COMP_WORDS[COMP_CWORD]}
   local wordlist=$(find $MARKPATH -type l -exec basename {} \;)
   COMPREPLY=($(compgen -W '${wordlist[@]}' -- "$curw"))
   return 0
 }
-
 complete -F _completemarks go unmark
 
+# list npm 
 function npmls() {
   npm ls "$@" | grep ^[└├]
 }
 
+# added git completions.
 if [ -f ~/.git-completion.bash ]; then
     . ~/.git-completion.bash
 fi
