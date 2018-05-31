@@ -41,6 +41,10 @@ alias gitunig="git update-index --no-assume-unchanged"
 alias gitmu='git ls-files -v | grep ^[a-z]'
 # Push everything from this repo up to heroku
 alias githero="git push heroku master"
+alias groot="cd `git rev-parse --show-toplevel`"
+
+# tree is a command from ubuntu which creates a new tree structure view of the folders
+alias tre="tree | less"
 
 # BOWER
 # Runs a search in bower for something.
@@ -51,13 +55,17 @@ alias bows="bower search"
 alias profile='vim ~/.bash_profile'
 # implement any changes by re-source-ing.
 alias sprofile='source ~/.bash_profile'
-
 #
 # userful helpers
 alias help_phptopline='head -n 1 ~/bin/minifyJS';
 
-# export PS1='\[\033[32m\w/\[\033[0m\]:$ ';
-export PS1='\[\033[01;32m\]\w\[\033[00m\]:\$ ';
+alias npmlist="npm list --depth=0"
+alias sd="npm start"
+alias newpost="npm run newpost"
+alias newshots="npm run newshots"
+alias renamepost="npm run renamepost -- "
+alias renew="npm run renew -- "
+alias ninstall="npm install --save $1"
 
 function tabname {
  printf "\e]1;$1\a"
@@ -72,7 +80,7 @@ alias dush="du -sch"
 # Always use color output for `ls`
 alias ls="ls -G"
 # Additional ls aliases
-alias ll="ls -l"
+alias ll="ls -ltr"
 alias l.="ls -d .*"
 # easier find usage
 alias fn='find . -name'
@@ -114,10 +122,12 @@ _completemarks() {
 }
 complete -F _completemarks go unmark
 
+source ~/bin/acd_func.sh
+
 # list npm
-function npmls() {
-  npm ls "$@" | grep ^[└├]
-}
+#function npmls() {
+#  npm ls "$@" | grep ^[└├]
+#}
 
 # added git completions.
 if [ -f ~/.git-completion.bash ]; then
@@ -128,3 +138,10 @@ ulimit -n 1024
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+## Heroku MONGO
+export MONGOLAB_URI=mongodb://heroku_rg3p4rkt:5j6gmvspis8jmaffalppkooiuu@ds019048.mlab.com:19048/heroku_rg3p4rkt
+
+if [ -f ~/.bashrc ]; then
+    source ~/.bashrc
+fi
