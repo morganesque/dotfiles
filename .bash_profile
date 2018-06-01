@@ -140,7 +140,7 @@ ulimit -n 1024
 export PATH="/usr/local/heroku/bin:$PATH"
 
 ## Heroku MONGO
-export MONGOLAB_URI=mongodb://heroku_rg3p4rkt:5j6gmvspis8jmaffalppkooiuu@ds019048.mlab.com:19048/heroku_rg3p4rkt
+export MONGOLAB_URI=mongodb://<user>:<pass>@<url>
 
 if [ -f ~/.bashrc ]; then
     source ~/.bashrc
