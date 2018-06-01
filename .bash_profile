@@ -142,6 +142,14 @@ export PATH="/usr/local/heroku/bin:$PATH"
 ## Heroku MONGO
 export MONGOLAB_URI=mongodb://<user>:<pass>@<url>
 
-if [ -f ~/.bashrc ]; then
-    source ~/.bashrc
-fi
+function parse_git_branch {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+}
+
+## changing the terminal prompt
+PS1='\[\033[0;32m\]\w\[\033[0m\]'
+PS1=$PS1:'\[\033[0;33m\]'
+PS1=$PS1"\$(parse_git_branch)"
+PS1=$PS1'\[\033[0m\]'
+PS1=$PS1':\[\033[0;37m\]$\[\033[0m\] '
+export PS1;
